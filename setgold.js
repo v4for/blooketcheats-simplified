@@ -1,10 +1,16 @@
-gold = prompt("How much gold)
+(() => {
+    const cheat = async () => {
+        const iframe = document.createElement('iframe');
+        document.body.append(iframe);
+        window.prompt = iframe.contentWindow.prompt.bind(window);
+        iframe.remove();
 
-let { stateNode } = Object.values((function react(r = document.querySelector("body>div")) { return Object.values(r)[1]?.children?.[0]?._owner.stateNode ? r : react(r.querySelector(":scope>div")) })())[1].children[0]._owner;
+        const gold = Number(prompt("How much gold would you like?"));
+        const { stateNode } = Object.values(document.querySelector("body>div").children[0]._owner)[1];
+        
         stateNode.setState({ gold, gold2: gold });
         stateNode.props.liveGameController.setVal({
-            path: "c/".concat(stateNode.props.client.name),
-            val: {
-                b: stateNode.props.client.blook,
-                g: gold
-            }
+            path: "c/" + stateNode.props.client.name,
+            val: { b: stateNode.props.client.blook, g: gold }
+        });
+    };
